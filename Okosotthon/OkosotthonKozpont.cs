@@ -6,9 +6,16 @@ namespace Okosotthon
 {
     public class OkosotthonKozpont
     {
+        private List<OkosEszkoz> eszkozok;
+
+        public OkosotthonKozpont()
+        {
+            this.eszkozok = new List<OkosEszkoz>();
+        }
+
         public void EszkozHozzaadasa(OkosEszkoz eszkoz)
         {
-            throw new NotImplementedException();
+            this.eszkozok.Add(eszkoz);
         }
 
      
