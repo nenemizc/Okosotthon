@@ -15,28 +15,35 @@ namespace Okosotthon
         public OkosEszkoz(string azonosito, string nev)
         {
 
-            throw new NotImplementedException();
+            this.azonosito = azonosito;
+            this.nev = nev;
+            this.onlineE = false;
+            this.utolsoFrissites = DateTime.Now;
         }
 
 
         public void Csatlakozas()
         {
-            throw new NotImplementedException();
+            this.onlineE = true;
         }
 
 
         public void KapcsolatBontasa()
         {
-            throw new NotImplementedException();
+            this.onlineE = false;
         }
         public bool DiagnosztikaFuttatasa()
         {
-            throw new NotImplementedException();
+            if (!this.onlineE)
+            {
+                return false;
+            }
+            return this.OnTesztFuttatasa();
         }
 
         public virtual void GyariBeallitasokVisszaallitasa()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Gyáriba visszarakva.");
         }
 
 
