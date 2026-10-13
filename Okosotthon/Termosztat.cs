@@ -1,37 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace Okosotthon
 {
     public class Termosztat : OkosEszkoz
     {
-        private double jelenlegiHomerseklet;
-        private double celHomerseklet;
-
-        public double JelenlegiHomerseklet { get => jelenlegiHomerseklet;private set => jelenlegiHomerseklet = value; }
-        public double CelHomerseklet { get => celHomerseklet;private set => celHomerseklet = value; }
-
+        public double JelenlegiHomerseklet { get; private set; }
+        public double CelHomerseklet { get; private set; }
         public Termosztat(string azonosito, string nev, double celHomerseklet)
-        : base(azonosito, nev)
+            : base(azonosito, nev)
         {
-            this.celHomerseklet = celHomerseklet;
-            this.jelenlegiHomerseklet = 21;
+            this.JelenlegiHomerseklet = 21.0;
+            this.CelHomerseklet = celHomerseklet;
         }
 
         public override void ParancsVegrehajtasa(string parancs)
         {
-            throw new NotImplementedException();
+            if (parancs.StartsWith("BEALLIT_HOMERSEKLET:"))
+            {
+                string ertek = parancs.Substring("BEALLIT_HOMERSEKLET:".Length);
+                this.CelHomerseklet = double.Parse(ertek, CultureInfo.InvariantCulture);
+            }
         }
 
         public override string AllapotJelentes()
         {
-            return $"Jelenlegi hőmérséklet: {this.jelenlegiHomerseklet} célhőmérséklet: {this.celHomerseklet}";
+            return "Jelenlegi hőmérséklet: " + this.JelenlegiHomerseklet +
+                   " °C, célhőmérséklet: " + this.CelHomerseklet + " °C";
         }
 
         protected override bool OnTesztFuttatasa()
         {
-            return this.celHomerseklet >= 5 && this.celHomerseklet <= 35;
+            return this.CelHomerseklet >= 5.0 &&
+                   this.CelHomerseklet <= 35.0;
         }
 
     }

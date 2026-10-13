@@ -1,54 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Okosotthon
+﻿public abstract class OkosEszkoz
 {
-    public abstract class OkosEszkoz
+    public string Azonosito { get; private set; }
+    public string Nev { get; private set; }
+    public bool OnlineE { get; private set; }
+    public DateTime UtolsoFrissites { get; protected set; }
+
+
+    public OkosEszkoz(string azonosito, string nev)
     {
-        private string azonosito;
-        private string nev;
-        private bool onlineE;
-        private DateTime utolsoFrissites;
-
-
-        public OkosEszkoz(string azonosito, string nev)
-        {
-
-            this.azonosito = azonosito;
-            this.nev = nev;
-            this.onlineE = false;
-            this.utolsoFrissites = DateTime.Now;
-        }
-
-
-        public void Csatlakozas()
-        {
-            this.onlineE = true;
-        }
-
-
-        public void KapcsolatBontasa()
-        {
-            this.onlineE = false;
-        }
-        public bool DiagnosztikaFuttatasa()
-        {
-            if (!this.onlineE)
-            {
-                return false;
-            }
-            return this.OnTesztFuttatasa();
-        }
-
-        public virtual void GyariBeallitasokVisszaallitasa()
-        {
-            Console.WriteLine("Gyáriba visszarakva.");
-        }
-
-
-        public abstract void ParancsVegrehajtasa(string parancs);
-        public abstract string AllapotJelentes();
-        protected abstract bool OnTesztFuttatasa();
+        this.Azonosito = azonosito;
+        this.Nev = nev;
+        this.OnlineE = false;
+        this.UtolsoFrissites = DateTime.Now;
     }
+
+
+    public void Csatlakozas()
+    {
+        this.OnlineE = true;
+    }
+
+
+    public void KapcsolatBontasa()
+    {
+        this.OnlineE = false;
+    }
+    public bool DiagnosztikaFuttatasa()
+    {
+        if (this.OnlineE == false)
+        {
+            return false;
+        }
+
+        return this.OnTesztFuttatasa();
+    }
+
+    public virtual void GyariBeallitasokVisszaallitasa()
+    {
+    }
+
+
+    public abstract void ParancsVegrehajtasa(string parancs);
+    public abstract string AllapotJelentes();
+    protected abstract bool OnTesztFuttatasa();
 }
